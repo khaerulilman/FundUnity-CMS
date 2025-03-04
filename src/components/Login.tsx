@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ReCAPTCHA from "react-google-recaptcha";
 import logoCMS from "../assets/images/logoCMS.jpg";
-import login1 from "../assets/images/login1.jpg"
+import login1 from "../assets/images/login1.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [captchaValidated, setCaptchaValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    console.log("Google reCAPTCHA Loaded!");
-  }, []);
-
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!captchaValidated) {
-      alert("Please complete the reCAPTCHA verification!");
-      return;
-    }
 
     // Cek autentikasi login (ganti dengan logika autentikasi yang sesungguhnya)
     if (email === "user@example.com" && password === "password123") {
@@ -30,11 +20,6 @@ const Login = () => {
     } else {
       alert("Invalid credentials");
     }
-  };
-
-  const onCaptchaChange = (value: string | null) => {
-    console.log("Captcha value:", value);
-    setCaptchaValidated(true);
   };
 
   return (
@@ -50,8 +35,10 @@ const Login = () => {
           <div className="flex justify-center mb-2">
             <img src={logoCMS} alt="Logo" className="w-28 h-auto" />
           </div>
-          <h2 className="text-center text-xl font-semibold text-[#333] mb-8">Please enter your details</h2>
-          
+          <h2 className="text-center text-xl font-semibold text-[#333] mb-8">
+            Please enter your details
+          </h2>
+
           <form onSubmit={handleLogin}>
             {/* Email Field */}
             <div className="mb-4">
@@ -79,17 +66,14 @@ const Login = () => {
               />
             </div>
 
-            {/* Google reCAPTCHA */}
-            <div className="mb-6">
-              <ReCAPTCHA
-                sitekey="6Le2e-AqAAAAANlTBnA6oJFe6vl-AHlkh1LsZvf2"
-                onChange={onCaptchaChange}
-              />
-            </div>
-
             {/* Forgot Password Link */}
             <div className="flex justify-between items-center mb-6">
-              <a href="#" className="text-sm text-[#007bff] hover:text-[#0056b3]">Forgot Password?</a>
+              <a
+                href="#"
+                className="text-sm text-[#007bff] hover:text-[#0056b3]"
+              >
+                Forgot Password?
+              </a>
             </div>
 
             {/* Login Button */}
